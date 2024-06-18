@@ -1,14 +1,9 @@
 name: CI
 
-on:
-  push:
-  pull_request:
-
-permissions:
-  checks: write
+on: [push]
 
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,10 +28,17 @@ jobs:
         run: poetry run pytest -v --junitxml=junit/test-results.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: success() || failure()
+        if: always()
         with:
           name: pytest results
           path: junit/*.xml
           reporter: java-junit
-      - name: Ensure formatting with black
-        run: poetry run black --check src tests
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "./src ./tests"
+          use_pyproject: true
