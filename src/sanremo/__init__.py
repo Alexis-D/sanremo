@@ -1,8 +1,8 @@
+import requests
+from clint.textui import colored, puts
 import re
 import sys
 
-import requests
-from clint.textui import colored, puts
 
 
 def is_san_remo_interesting_yet():
