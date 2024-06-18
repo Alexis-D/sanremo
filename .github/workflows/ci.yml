@@ -8,24 +8,8 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-      - name: Setup a local virtual environment
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v4
-        name: Define a cache for the virtual environment based on the dependencies lock file
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
-      - name: Install the project dependencies
-        run: poetry install
+      - name: Setup env
+        uses: ./.github/actions/setup
       - name: Run tests
         run: poetry run pytest -v --junitxml=junit/test-results.xml
       - name: Test Report
@@ -35,6 +19,7 @@ jobs:
           name: pytest results
           path: junit/*.xml
           reporter: java-junit
+
   black:
     runs-on: ubuntu-latest
     steps:
@@ -47,3 +32,14 @@ jobs:
         with:
           options: "--check --verbose"
           src: "./src ./tests"
+
+  isort:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup env
+        uses: ./.github/actions/setup
+      - uses: isort/isort-action@master
+        with:
+          sortPaths:
+            - src
+            - tests
