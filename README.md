@@ -8,6 +8,8 @@ Most of the year, and during most of the race, the produced CLI should output so
 ```
 $ sanremo
 ❌ what did you expect?
+$ echo $?
+1
 ```
 
 Wanna try it? Easily install with `pipx install git+https://github.com/Alexis-D/sanremo.git` (or `pipx install .` after
