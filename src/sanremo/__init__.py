@@ -1,5 +1,6 @@
-import sys
 import re
+import sys
+
 import requests
 from clint.textui import colored, puts
 
