@@ -4,7 +4,6 @@ import re
 import sys
 
 
-
 def is_san_remo_interesting_yet():
     response = requests.get("https://ismilansanremoexcitingyet.com/")
 
