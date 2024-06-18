@@ -1,4 +1,4 @@
-Dummy project to play with modern python packaging/tooling (`poetry`, `black`, `pipx`) and github actions.
+Dummy project to play with modern python packaging/tooling (`poetry`, `black`, `isort`, `pipx`) and github actions.
 
 Produces a CLI that queries <https://ismilansanremoexcitingyet.com/>, and will let you if Milan-San Remo 🚴 is finally
 exciting.
