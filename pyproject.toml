@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "sanremo"
 version = "0.1.0"
-description = ""
-authors = ["Alexis Daboville <alexis.daboville@gmail.com>"]
+description = "cli to see if San Remo is interesting yet"
+authors = ["Alexis Daboville"]
 readme = "README.md"
 packages = [{include = "sanremo", from = "src"}]
 
