@@ -19,4 +19,4 @@ cloning the repo).
 
 ---
 
-Note for future self: `poetry install` then `poetry run pre-commit install`)
+Note for future self: `poetry install` then `poetry run pre-commit install`.
