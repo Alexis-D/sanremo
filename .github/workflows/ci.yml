@@ -40,6 +40,4 @@ jobs:
         uses: ./.github/actions/setup
       - uses: isort/isort-action@master
         with:
-          sortPaths:
-            - src
-            - tests
+          sortPaths: "src tests"
