@@ -1,10 +1,9 @@
 name: Setup env
-description: Clones, setup python, poetry and install deps
+description: Setup python, poetry and install deps
 
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
     - name: Install Python
       uses: actions/setup-python@v5
       with:
