@@ -8,14 +8,14 @@ packages = [{include = "sanremo", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-requests = "^2.32.3"
 clint = "^0.5.1"
-pre-commit = "^3.7.1"
+requests = "^2.32.3"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.4.2"
-pytest = "^8.2.2"
-isort = "^5.13.2"
+black = ">= 24.4.2"
+isort = ">= 5.13.2"
+pre-commit = ">= 3.7.1"
+pytest = ">= 8.2.2"
 
 [tool.poetry.scripts]
 sanremo = "sanremo:main"
