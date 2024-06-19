@@ -12,7 +12,7 @@ runs:
       uses: eifinger/setup-rye@v3
       with:
         enable-cache: true
-        cache-prefix: ${{ input.python }}
+        cache-prefix: ${{ inputs.python }}
     - name: Rye sync
       run: rye pin ${{ inputs.python }}
       shell: bash
