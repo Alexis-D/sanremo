@@ -14,7 +14,7 @@ runs:
         enable-cache: true
         cache-prefix: ${{ inputs.python }}
     - name: Rye sync
-      if: ${{ inputs.python != "" }}
+      if: "${{ inputs.python != '' }}"
       run: rye pin ${{ inputs.python }}
       shell: bash
     - name: Rye sync
