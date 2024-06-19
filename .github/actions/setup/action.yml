@@ -9,5 +9,5 @@ runs:
       with:
         enable-cache: true
     - name: Rye sync
-      run: rye sync --no-locks
+      run: rye sync --no-lock
       shell: bash
