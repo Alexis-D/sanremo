@@ -5,12 +5,17 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.9, 3.10, 3.11, 3.12, pypy@3.10]
     permissions:
       checks: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup env
         uses: ./.github/actions/setup
+        with:
+          python: ${{ matrix.python }}
       - name: Run tests
         run: rye test -- -v --junitxml=junit/test-results.xml
       - name: Test Report

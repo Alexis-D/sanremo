@@ -1,6 +1,10 @@
 name: Setup env
 description: Setup python, poetry and install deps
 
+inputs:
+  python:
+    description: 'Python toolchain to use'
+
 runs:
   using: composite
   steps:
@@ -8,6 +12,10 @@ runs:
       uses: eifinger/setup-rye@v3
       with:
         enable-cache: true
+        cache-prefix: ${{ input.python }}
+    - name: Rye sync
+      run: rye pin ${{ inputs.python }}
+      shell: bash
     - name: Rye sync
       run: rye sync --no-lock
       shell: bash
