@@ -12,7 +12,7 @@ jobs:
       - name: Setup env
         uses: ./.github/actions/setup
       - name: Run tests
-        run: poetry run pytest -v --junitxml=junit/test-results.xml
+        run: rye test -- -v --junitxml=junit/test-results.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
@@ -21,25 +21,20 @@ jobs:
           path: junit/*.xml
           reporter: java-junit
 
-  black:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - uses: psf/black@stable
-        with:
-          options: "--check --verbose"
-          src: "./src ./tests"
-
-  isort:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup env
         uses: ./.github/actions/setup
-      - uses: isort/isort-action@master
-        with:
-          sortPaths: "src tests"
+      - name: Run tests
+        run: rye lint
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup env
+        uses: ./.github/actions/setup
+      - name: Run tests
+        run: rye fmt --check

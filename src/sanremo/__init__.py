@@ -2,7 +2,7 @@ import re
 import sys
 
 import requests
-from clint.textui import colored, puts
+from colorama import Fore, Style
 
 
 def is_san_remo_interesting_yet():
@@ -19,7 +19,7 @@ def main():
     interesting_yet = is_san_remo_interesting_yet()
 
     if interesting_yet:
-        puts(colored.green("✅ finally (almost sounds like a bug!)"))
+        print(f"{Fore.GREEN}✅ finally (almost sounds like a bug!){Style.RESET_ALL}")
     else:
-        puts(colored.red("❌ what did you expect?"))
+        print(f"{Fore.RED}❌ what did you expect?{Style.RESET_ALL}")
         sys.exit(1)

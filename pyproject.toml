@@ -1,25 +1,36 @@
-[tool.poetry]
+[project]
 name = "sanremo"
 version = "0.1.0"
-description = "cli to see if San Remo is interesting yet"
-authors = ["Alexis Daboville"]
+description = "Add your description here"
+authors = [
+    { name = "Alexis Daboville", email = "alexis.daboville@gmail.com" }
+]
+dependencies = [
+    "requests>=2.32.3",
+    "colorama>=0.4.6",
+]
 readme = "README.md"
-packages = [{include = "sanremo", from = "src"}]
+requires-python = ">= 3.9"
 
-[tool.poetry.dependencies]
-python = "^3.12"
-clint = "^0.5.1"
-requests = "^2.32.3"
-
-[tool.poetry.group.dev.dependencies]
-black = ">= 24.4.2"
-isort = ">= 5.13.2"
-pre-commit = ">= 3.7.1"
-pytest = ">= 8.2.2"
-
-[tool.poetry.scripts]
-sanremo = "sanremo:main"
+[project.scripts]
+"sanremo" = "sanremo:main"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.2.2",
+    "pre-commit>=3.7.1",
+]
+
+[tool.rye.scripts]
+pre-commit-install = { cmd = ["pre-commit", "install"] }
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sanremo"]
