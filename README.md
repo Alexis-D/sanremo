@@ -1,6 +1,6 @@
 [![CI](https://github.com/Alexis-D/sanremo/actions/workflows/ci.yml/badge.svg)](https://github.com/Alexis-D/sanremo/actions/workflows/ci.yml)
 
-Dummy project to play with modern python packaging/tooling (~~`poetry`, `black`, `isort`,~~, [`rye`](https://rye.astral.sh/), `pipx`) and github actions.
+Dummy project to play with modern python packaging/tooling (~~`poetry`, `black`, `isort`,~~ [`rye`](https://rye.astral.sh/), `pipx`) and github actions.
 
 Produces a CLI that queries <https://ismilansanremoexcitingyet.com/>, and will let you if Milan-San Remo 🚴 is finally
 exciting.
