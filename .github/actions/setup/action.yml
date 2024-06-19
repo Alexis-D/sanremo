@@ -24,7 +24,7 @@ runs:
       uses: eifinger/setup-rye@v3
       with:
         enable-cache: true
-        cache-prefix: bust-${{ env.PYTHON }}
+        cache-prefix: ${{ env.PYTHON }}
     - name: Rye sync
       if: "${{ inputs.python != '' }}"
       run: rye pin ${{ inputs.python }}
