@@ -8,13 +8,24 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Infer python version
+      run: |
+        echo Python version...
+        if [[ -z "${{ inputs.python }}" ]]
+        then
+            cat .python-version
+            echo "PYTHON=$(cat .python-version)" >> "$GITHUB_ENV"
+        else
+            echo "${{ inputs.python }}"
+            echo "PYTHON=${{ inputs.python }}" >> "$GITHUB_ENV"
+        fi
+      shell: bash
     - name: Install the latest version of rye
       uses: eifinger/setup-rye@v3
       with:
         enable-cache: true
-        cache-prefix: ${{ inputs.python }}
+        cache-prefix: ${{ env.PYTHON }}
     - name: Rye sync
-      if: "${{ inputs.python != '' }}"
       run: rye pin ${{ inputs.python }}
       shell: bash
     - name: Rye sync

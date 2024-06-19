@@ -22,7 +22,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: pytest results
+          name: "pytest results (${{ matrix.python }})"
           path: junit/*.xml
           reporter: java-junit
 
