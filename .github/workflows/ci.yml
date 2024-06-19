@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup env
         uses: ./.github/actions/setup
-      - name: Run tests
+      - name: rye lint
         run: rye lint
 
   fmt:
@@ -36,5 +36,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup env
         uses: ./.github/actions/setup
-      - name: Run tests
+      - name: rye fmt
         run: rye fmt --check
