@@ -20,3 +20,12 @@ cloning the repo).
 ---
 
 Note for future self: run `rye run pre-commit-install`.
+
+---
+
+Added a `Dockerfile` because why not?
+
+```
+$ docker build -t sanremo:latest .
+$ docker run --rm sanremo
+```
