@@ -19,7 +19,7 @@ def is_san_remo_interesting_yet(html):
     return interesting_yet == "yes"
 
 
-@dataclass
+@dataclass(frozen=True)
 class Result:
     status_text: str
     exit_code: int
