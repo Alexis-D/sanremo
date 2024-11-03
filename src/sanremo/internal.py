@@ -7,8 +7,8 @@ from colorama import Fore, Style
 URL = "https://ismilansanremoexcitingyet.com/"
 
 
-def fetch_website(get=requests.get):
-    response = get(URL)
+def fetch_website():
+    response = requests.get(URL)
     response.raise_for_status()
     return response.text
 
@@ -24,9 +24,9 @@ class SanRemoStatusAndExitCode:
     exit_code: int
 
 
-def process(fetch=fetch_website):
+def process():
     try:
-        html = fetch()
+        html = fetch_website()
     except Exception:
         return SanRemoStatusAndExitCode(
             f"{Fore.RED}❌ probably not?{Style.RESET_ALL}", 2
