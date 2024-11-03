@@ -7,12 +7,6 @@ from colorama import Fore, Style
 URL = "https://ismilansanremoexcitingyet.com/"
 
 
-def fetch_website():
-    response = requests.get(URL)
-    response.raise_for_status()
-    return response.text
-
-
 def is_san_remo_interesting_yet(html):
     interesting_yet = re.search(r"<h2>(Yes|No)</h2>", html).group(1).lower()
     return interesting_yet == "yes"
@@ -24,21 +18,29 @@ class SanRemoStatusAndExitCode:
     exit_code: int
 
 
-def process():
-    try:
-        html = fetch_website()
-    except Exception:
+class SanRemoClient:
+    def __init__(self, url=URL):
+        self.url = URL
+
+    def _fetch_website(self):
+        response = requests.get(self.url)
+        response.raise_for_status()
+        return response.text
+
+    def process(self):
+        try:
+            html = self._fetch_website()
+        except Exception:
+            return SanRemoStatusAndExitCode(
+                f"{Fore.RED}❌ probably not?{Style.RESET_ALL}", 2
+            )
+
+        if is_san_remo_interesting_yet(html):
+            return SanRemoStatusAndExitCode(
+                f"{Fore.GREEN}✅ finally (almost sounds like a bug!){Style.RESET_ALL}",
+                0,
+            )
+
         return SanRemoStatusAndExitCode(
-            f"{Fore.RED}❌ probably not?{Style.RESET_ALL}", 2
+            f"{Fore.RED}❌ what did you expect?{Style.RESET_ALL}", 1
         )
-
-    interesting_yet = is_san_remo_interesting_yet(html)
-
-    if interesting_yet:
-        return SanRemoStatusAndExitCode(
-            f"{Fore.GREEN}✅ finally (almost sounds like a bug!){Style.RESET_ALL}", 0
-        )
-
-    return SanRemoStatusAndExitCode(
-        f"{Fore.RED}❌ what did you expect?{Style.RESET_ALL}", 1
-    )
