@@ -1,19 +1,11 @@
 repos:
-- repo: local
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.8.0
   hooks:
-  - id: lint
-    name: rye lint --fix
-    entry: rye lint --fix
-    language: system
-    types: [python]
-  - id: fmt
-    name: rye fmt
-    entry: rye fmt
-    language: system
-    types: [python]
-  - id: lock
-    name: rye lock
-    entry: rye lock
-    language: system
-    pass_filenames: false
-    files: ^pyproject.toml$
+    - id: ruff
+      args: [ --fix ]
+    - id: ruff-format
+- repo: https://github.com/astral-sh/uv-pre-commit
+  rev: 0.5.4
+  hooks:
+    - id: uv-lock

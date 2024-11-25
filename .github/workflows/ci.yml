@@ -17,7 +17,7 @@ jobs:
         with:
           python: ${{ matrix.python }}
       - name: Run tests
-        run: rye test -- -v --junitxml=junit/test-results.xml
+        run: uv run pytest -v --junitxml=junit/test-results.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
@@ -30,16 +30,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup env
-        uses: ./.github/actions/setup
-      - name: rye lint
-        run: rye lint
+      - uses: astral-sh/ruff-action@v1
 
   fmt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup env
-        uses: ./.github/actions/setup
-      - name: rye fmt
-        run: rye fmt --check
+      - uses: astral-sh/ruff-action@v1
+        with:
+          args: "format --check"

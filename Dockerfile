@@ -1,13 +1,9 @@
-FROM debian:stable-slim AS builder
-COPY . /sanremo
+FROM python:3.13.0-alpine AS builder
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
+ADD pyproject.toml README.md src/ uv.lock /sanremo/
 WORKDIR /sanremo
-RUN apt-get update &&\
-    apt-get install -y curl &&\
-    curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION=--yes bash &&\
-    /root/.rye/shims/rye build
+RUN uv sync --no-dev --frozen
 
-FROM python:3.12.4-alpine
-COPY --from=builder /sanremo/dist/sanremo*.tar.gz /sanremo/
-RUN pip install /sanremo/sanremo*.tar.gz
-
-ENTRYPOINT ["/usr/local/bin/sanremo"]
+FROM python:3.13.0-alpine
+COPY --from=builder /sanremo /sanremo
+ENTRYPOINT ["/sanremo/.venv/bin/sanremo"]
