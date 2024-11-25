@@ -29,5 +29,5 @@ runs:
       run: uv python pin ${{ inputs.python }}
       shell: bash
     - name: uv sync
-      run: uv sync
+      run: uv sync --locked
       shell: bash

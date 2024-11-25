@@ -27,9 +27,3 @@ dev-dependencies = [
     "assertpy>=1.1",
     "ruff>=0.8.0",
 ]
-
-[tool.hatch.metadata]
-allow-direct-references = true
-
-[tool.hatch.build.targets.wheel]
-packages = ["src/sanremo"]
