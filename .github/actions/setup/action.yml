@@ -20,15 +20,14 @@ runs:
             echo "PYTHON=${{ inputs.python }}" >> "$GITHUB_ENV"
         fi
       shell: bash
-    - name: Install the latest version of rye
-      uses: eifinger/setup-rye@v4
-      with:
-        enable-cache: true
-        cache-prefix: ${{ env.PYTHON }}
-    - name: Rye sync
-      if: "${{ inputs.python != '' }}"
-      run: rye pin ${{ inputs.python }}
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+    - name: install python
+      run: uv python install ${{ inputs.python }}
       shell: bash
-    - name: Rye sync
-      run: rye sync --no-lock
+    - name: pin python
+      run: uv python pin ${{ inputs.python }}
+      shell: bash
+    - name: uv sync
+      run: uv sync
       shell: bash
