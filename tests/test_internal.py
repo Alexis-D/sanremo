@@ -1,10 +1,15 @@
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
-import requests
+import pytest
 from assertpy import assert_that
 from requests.exceptions import RequestException
 
 import sanremo.internal
+
+
+@pytest.fixture
+def client():
+    return sanremo.internal.SanRemoClient()
 
 
 def test_is_san_remo_interesting_yet():
@@ -26,37 +31,27 @@ def test_process():
 
 
 @patch("requests.get")
-def test_fetch_website_when_get_succeeds(mock_get):
-    client = sanremo.internal.SanRemoClient()
-
-    success_reponse = Mock(spec=requests.Response)
-    success_reponse.text = "foo"
-    mock_get.return_value = success_reponse
+def test_fetch_website_when_get_succeeds(mock_get, client):
+    mock_get.return_value.text = "foo"
 
     assert_that(client._fetch_website()).is_equal_to("foo")
 
     mock_get.assert_called_once_with(sanremo.internal.URL)
-    success_reponse.raise_for_status.assert_called_once()
+    mock_get.return_value.raise_for_status.assert_called_once()
 
 
 @patch("requests.get")
-def test_fetch_website_when_get_succeeds_but_return_error_response(mock_get):
-    client = sanremo.internal.SanRemoClient()
-
-    failure_response = Mock(spec=requests.Response)
-    failure_response.raise_for_status.side_effect = RequestException
-    mock_get.return_value = failure_response
+def test_fetch_website_when_get_succeeds_but_return_error_response(mock_get, client):
+    mock_get.return_value.raise_for_status.side_effect = RequestException
 
     assert_that(client._fetch_website).raises(RequestException).when_called_with()
 
     mock_get.assert_called_once_with(sanremo.internal.URL)
-    failure_response.raise_for_status.assert_called_once()
+    mock_get.return_value.raise_for_status.assert_called_once()
 
 
 @patch("requests.get", side_effect=Exception("error"))
-def test_fetch_website_when_get_fails(mock_get):
-    client = sanremo.internal.SanRemoClient()
-
+def test_fetch_website_when_get_fails(mock_get, client):
     assert_that(client._fetch_website).raises(Exception).when_called_with().is_equal_to(
         "error"
     )
