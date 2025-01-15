@@ -3,14 +3,16 @@ repos:
   hooks:
   - id: lint
     name: rye lint --fix
-    entry: rye lint --fix
+    entry: bash -c 'rye lint --fix && git add -u'
     language: system
     types: [python]
+    pass_filenames: false
   - id: fmt
     name: rye fmt
-    entry: rye fmt
+    entry: bash -c 'rye fmt && git add -u'
     language: system
     types: [python]
+    pass_filenames: false
   - id: lock
     name: rye lock
     entry: rye lock
