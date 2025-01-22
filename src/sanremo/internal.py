@@ -20,7 +20,7 @@ class SanRemoStatusAndExitCode:
 
 class SanRemoClient:
     def __init__(self, url=URL):
-        self.url = URL
+        self.url = url
 
     def _fetch_website(self):
         response = requests.get(self.url)
